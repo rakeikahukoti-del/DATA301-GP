@@ -1,0 +1,83 @@
+---
+title: "eda"
+author: "Group 18"
+date: "2026-08-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(skimr)
+library(naniar)
+library(lubridate)
+```
+
+## Load data
+
+```{r load-data}
+#Change to path locally
+steam <- read_csv(".../games_march2025_cleaned.csv")
+
+dim(steam)
+glimpse(steam)
+```
+Drop columns not useful for analysis, keep them out of the working copy.
+```{r drop-cols}
+steam_eda <- steam %>%
+  select(-header_image, -website, -support_url, -support_email,
+         -metacritic_url, -screenshots, -movies, -packages,
+         -detailed_description, -about_the_game, -short_description,
+         -notes)
+```
+
+Parsing strings to be relevant to R
+```{r parse-list-cols}
+#turn "['Action', 'Free To Play']" into c("Action", "Free To Play")
+parse_py_list <- function(x) {
+  x %>%
+    str_remove_all("^\\[|\\]$") %>%
+    str_remove_all("'") %>%
+    str_split(",\\s*")
+}
+
+steam_eda <- steam_eda %>%
+  mutate(
+    genres_list      = parse_py_list(genres),
+    categories_list  = parse_py_list(categories),
+    developers_list  = parse_py_list(developers),
+    publishers_list  = parse_py_list(publishers),
+    n_genres         = lengths(genres_list),
+    n_categories     = lengths(categories_list),
+    #First/primary genre, useful for simple grouping
+    primary_genre    = map_chr(genres_list, ~ .x[1])
+  )
+
+#estimated_owners: "100000000 - 200000000" -> numeric midpoint
+steam_eda <- steam_eda %>%
+  separate(estimated_owners, into = c("owners_low", "owners_high"), sep = " - ", remove = FALSE) %>%
+  mutate(
+    owners_low  = as.numeric(owners_low),
+    owners_high = as.numeric(owners_high),
+    owners_mid  = (owners_low + owners_high) / 2
+  )
+```
+
+Missing data - shows the 2 columns with missing data in table form and bar chart form
+```{r missing-data}
+missing_summary <- steam_eda %>%
+  summarise(across(everything(), ~ sum(is.na(.)))) %>%
+  pivot_longer(everything(), names_to = "column", values_to = "n_missing") %>%
+  mutate(pct_missing = round(n_missing / nrow(steam_eda) * 100, 2)) %>%
+  filter(n_missing > 0) %>%
+  arrange(desc(n_missing))
+
+missing_summary
+
+cols_with_na <- steam_eda %>%
+  select(where(~ any(is.na(.)))) %>%
+  names()
+
+vis_miss(steam_eda %>% select(all_of(cols_with_na)), warn_large_data = FALSE)
+```
+
