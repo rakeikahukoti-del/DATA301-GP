@@ -1,13 +1,8 @@
-
 # DATA301 Group Project
-
-
 
 ## Dataset
 
 Steam Dataset (2025)
-
-
 
 ## Team
 
@@ -15,17 +10,12 @@ Steam Dataset (2025)
 - Derick Uriel
 - Rakei Kahukoti
 
-
-
 ## Folder Structure
 
+- assets/
 - data/
+- documentation/
 - notebooks/
-- scripts/
-- figures/
-- report/
-- docs/
-
 
 ## Workflow
 
@@ -33,7 +23,6 @@ Steam Dataset (2025)
 2. Complete assigned task
 3. Commit with a clear message
 4. Push changes
-
 
 The Kaggle dataset is not stored in this repository
 

@@ -4,3 +4,4 @@ data/*.zip
 .RData
 .Rproj.user/
 .DS_Store
+.venv/
