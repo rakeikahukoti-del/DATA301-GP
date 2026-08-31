@@ -17,12 +17,7 @@ Steam Dataset (2025)
 - documentation/
 - notebooks/
 
-## Workflow
-
-1. Pull latest changes
-2. Complete assigned task
-3. Commit with a clear message
-4. Push changes
+## Important Information
 
 The Kaggle dataset is not stored in this repository
 
