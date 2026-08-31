@@ -1,0 +1,100 @@
+---
+title: "DATA301 Interim Report"
+format: pdf
+editor: visual
+---
+
++-------------------------------------------------------------+----------+
+|                                                             |          |
++=============================================================+==========+
+| **Section**                                                 | **Page** |
++-------------------------------------------------------------+----------+
+| 1.  **Background**                                          | **2**    |
++-------------------------------------------------------------+----------+
+| a.  **Data Types and Structure**                            | **2**    |
++-------------------------------------------------------------+----------+
+| b.  **Variable Selection and Data Cleaning**                | **3**    |
++-------------------------------------------------------------+----------+
+| c.  **Completeness and Data Quality**                       | **3**    |
++-------------------------------------------------------------+----------+
+| 2.  **Ethics, Privacy and Security**                        | **4**    |
++-------------------------------------------------------------+----------+
+| - **Exploratory Data Analysis**                             | **5**    |
++-------------------------------------------------------------+----------+
+| - **Scoping Data**                                          | **5**    |
++-------------------------------------------------------------+----------+
+| - **Genre Distribution**                                    | **6**    |
++-------------------------------------------------------------+----------+
+| - **Positive Reviews Distribution**                         | **6**    |
++-------------------------------------------------------------+----------+
+| - **Confounders (Price and Age by Genre)**                  | **7**    |
++-------------------------------------------------------------+----------+
+| - **Distribution of Positive Reviews and Average Playtime** | **8**    |
++-------------------------------------------------------------+----------+
+| - **Price and Success**                                     | **8**    |
++-------------------------------------------------------------+----------+
+| - **Individual Contributions**                              | **9**    |
++-------------------------------------------------------------+----------+
+| - **References**                                            | **10**   |
++-------------------------------------------------------------+----------+
+| - **Appendix A (Project Timeline)**                         | **11**   |
++-------------------------------------------------------------+----------+
+| - **Appendix B (Task Allocation)**                          | **11**   |
++-------------------------------------------------------------+----------+
+| - **Appendix C (Detailed Data Description)**                | **12**   |
++-------------------------------------------------------------+----------+
+
+\newpage
+
+## 1. Background
+
+Our group worked on the Steam Games Dataset published on Kaggle by Artemiy Ermilov and collaborators. The dataset contains information about available games found on the Steam library which is one of the largest digital distribution platforms of PC games. The dataset leads up to March 2025 and contains information on more than 90,000 games. The authors provide both a raw dataset and cleaned version removing duplicate entries and playtest versions of games (playtest games are incomplete versions that are given to testers in order to give feedback to the developers before the final game is released). While a May 2024 dataset is also available, we decided to focus our analysis on the March 2025 data alone.
+
+The version of the dataset used in our analysis is the cleaned 2025 version that contains 89,618 observations and 47 variables. It provides information about individual games and includes attributes relating to their release, pricing, genres, developers, publishers, user reviews, supported platforms and more. Each observation represents a game found on Steam, while the columns are different attributes of that game. This dataset is of interest because it provides an opportunity to investigate patterns in the video game industry and explore factors associated with the popularity and success of games. Steam contains a wide variety of games of differing distinct characteristics. Therefore, analyzing these characteristics will provide an opportunity to discern whether they can be associated with greater success of a game.  The dataset can be used to explore questions like whether some genres are more successful than others, whether the price of a game is associated with its popularity and whether characteristics such as release year or developer are related to the number of positive reviews a game receives. These questions allow us to use exploratory data analysis to identify patterns and relationships within the dataset rather than focusing on a single type of game.
+
+### **1a. Data Types and Structure**
+
+The dataset contains a mixture of numerical, categorical, date and text based variables. Numerical variables include measures such as game price and review related statistics. Categorical variables describe characteristics such as the game’s genre, developer, publisher and supported platforms. The dataset also contains date information including game release dates which allows games to be compared across different periods. Each row represents one game rather than a repeated measurement over time meaning that the dataset is not a traditional time-series dataset. The release date variables allow trends in the number and characteristics of games to be investigated over time. Some variables can also contain multiple categories for a single game. For example, a game may fall under multiple different genres so this needs to be considered when summarising categorical variables.
+
+\newpage
+
+### **1b. Variable Selection and Data Cleaning**
+
+Before conducting our analysis, we removed several variables that we thought were not relevant and would not provide useful information for our EDA. These included header_image, website, support_url, support_email, metacritic_url, screenshots, movies, packages, detailed_description, about_the_game and notes. Many of these variables contain URLs, images, media links or descriptive text that were not required for our exploratory analysis.  We also excluded score_rank due to its extremely high number of missing data. Of the 89,618 games in the dataset, 89,579 games had no score rank recorded which makes up 99% of games in the dataset. This leaves only 39 observations with available values. Including this variable would provide very limited information and could substantially reduce the number of observations available for analyses involving it.
+
+### **1c. Completeness and Data quality**
+
+We assessed the completeness of the dataset by examining missing values and duplicate observations. The dataset contains 89,618 rows and 47 columns and no duplicate rows, we also found that substantial amounts of missing data were present in some variables. 
+
+The reviews variable contains 79,217 missing values, representing 88.39% of observations. The high proportion of missing review data is important when using reviews as an indicator of game popularity as analyses based on this variable may represent only a subset of the games in the dataset. Approximately 10,401 games have recorded review information, meaning that conclusions involving reviews need to be interpreted with this limitation in mind. Missing data was considered when selecting variables for analysis and interpreting results. Rather than assuming that missing values represented zero, missing observations were treated as unavailable information unless there was a clear reason to interpret them otherwise.  As no duplicate rows were identified, duplicate observations did not require removal during the data cleaning process Other similar data preparation steps were performed when necessary to ensure that variables were in suitable formats for analysis. Because our analysis is solely focused on the Steam Games Dataset, no integration of multiple datasets was required.
+
+\newpage
+
+## **2. Ethics, Privacy and Security**
+
+When looking into ethical considerations of using any dataset for data analysis, we must always check how the data was collected. According to kaggle, who hosts the Steam games 2025 dataset, the data was collected directly from scraping the Steam store page, the Steam API and public user metrics (reviews, scores etc.), which all fall under publicly available information. Therefore, there are few ethical concerns when it comes to the data collection process. 
+
+The Steam games dataset also uses plenty of copyrighted material and intellectual properties. This includes game titles, descriptions, screenshots from the games, artwork and reviews. While artwork and screenshots will likely not be used during the analysis, we may utilize material like descriptions and reviews. Thus, we will keep in mind to use these materials strictly for analysis and we will not republish them in any way.
+
+Another ethical concern is inherent bias within the dataset, in particular, when using variables such as reviews and scores in the analysis. In most cases, a large number of people who buy games often don’t bother to give a rating and an even smaller minority are vocal enough to write a review. Thus, these metrics are not indicative of the whole population of players who own any particular and in some cases, skew the reality of how people perceive a game. Furthermore, there is also bias linked to the differing popularity of games on Steam. Games with larger playerbases will always have more data than lesser known games. Additionally, those more niche games potentially have dedicated communities which may skew results.
+
+A major ethical concern in this project is the privacy of the Steam users in the dataset. While personal information from Steam users accounts isn’t part of any variable within the dataset, we cannot ignore the likelihood of users including personal information in their submitted reviews. Our analysis project does not necessitate the use of such private information. Therefore, when this information does come up, we will do our best to ignore or omit them during our analysis and model building. To keep our project and results secure, we will maintain all the details within group members and our supervisors. Our reports will be done on a Google docs that has access restricted to group members and supervisors. Discussions about the project are held within private group chats and meetings. The codes and resources used will remain within the access restricted to the group.
+
+\newpage
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
