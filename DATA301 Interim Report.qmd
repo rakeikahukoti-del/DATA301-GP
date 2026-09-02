@@ -4,49 +4,49 @@ format: pdf
 editor: visual
 ---
 
-+-------------------------------------------------------------+----------+
-|                                                             |          |
-+=============================================================+==========+
-| **Section**                                                 | **Page** |
-+-------------------------------------------------------------+----------+
-| 1.  **Background**                                          | **2**    |
-+-------------------------------------------------------------+----------+
-| a.  **Data Types and Structure**                            | **2**    |
-+-------------------------------------------------------------+----------+
-| b.  **Variable Selection and Data Cleaning**                | **3**    |
-+-------------------------------------------------------------+----------+
-| c.  **Completeness and Data Quality**                       | **3**    |
-+-------------------------------------------------------------+----------+
-| 2.  **Ethics, Privacy and Security**                        | **4**    |
-+-------------------------------------------------------------+----------+
-| - **Exploratory Data Analysis**                             | **5**    |
-+-------------------------------------------------------------+----------+
-| - **Scoping Data**                                          | **5**    |
-+-------------------------------------------------------------+----------+
-| - **Genre Distribution**                                    | **6**    |
-+-------------------------------------------------------------+----------+
-| - **Positive Reviews Distribution**                         | **6**    |
-+-------------------------------------------------------------+----------+
-| - **Confounders (Price and Age by Genre)**                  | **7**    |
-+-------------------------------------------------------------+----------+
-| - **Distribution of Positive Reviews and Average Playtime** | **8**    |
-+-------------------------------------------------------------+----------+
-| - **Price and Success**                                     | **8**    |
-+-------------------------------------------------------------+----------+
-| - **Individual Contributions**                              | **9**    |
-+-------------------------------------------------------------+----------+
-| - **References**                                            | **10**   |
-+-------------------------------------------------------------+----------+
-| - **Appendix A (Project Timeline)**                         | **11**   |
-+-------------------------------------------------------------+----------+
-| - **Appendix B (Task Allocation)**                          | **11**   |
-+-------------------------------------------------------------+----------+
-| - **Appendix C (Detailed Data Description)**                | **12**   |
-+-------------------------------------------------------------+----------+
++-------------------------------------------------------------+-------------+
+|                                                             |             |
++=============================================================+=============+
+| **Section**                                                 | **Page**    |
++-------------------------------------------------------------+-------------+
+| 1.  **Background**                                          | **2**       |
++-------------------------------------------------------------+-------------+
+| a.  **Data Types and Structure**                            | **2**       |
++-------------------------------------------------------------+-------------+
+| b.  **Variable Selection and Data Cleaning**                | **3**       |
++-------------------------------------------------------------+-------------+
+| c.  **Completeness and Data Quality**                       | **3**       |
++-------------------------------------------------------------+-------------+
+| 2.  **Ethics, Privacy and Security**                        | **4**       |
++-------------------------------------------------------------+-------------+
+| - **Exploratory Data Analysis**                             | **5**       |
++-------------------------------------------------------------+-------------+
+| - **Scoping Data**                                          | **5**       |
++-------------------------------------------------------------+-------------+
+| - **Genre Distribution**                                    | **6**       |
++-------------------------------------------------------------+-------------+
+| - **Positive Reviews Distribution**                         | **6**       |
++-------------------------------------------------------------+-------------+
+| - **Confounders (Price and Age by Genre)**                  | **7**       |
++-------------------------------------------------------------+-------------+
+| - **Distribution of Positive Reviews and Average Playtime** | **8**       |
++-------------------------------------------------------------+-------------+
+| - **Price and Success**                                     | **8**       |
++-------------------------------------------------------------+-------------+
+| - **Individual Contributions**                              | **9**       |
++-------------------------------------------------------------+-------------+
+| - **References**                                            | **10**      |
++-------------------------------------------------------------+-------------+
+| - **Appendix A (Project Timeline)**                         | **11**      |
++-------------------------------------------------------------+-------------+
+| - **Appendix B (Task Allocation)**                          | **11**      |
++-------------------------------------------------------------+-------------+
+| - **Appendix C (Detailed Data Description)**                | **12**      |
++-------------------------------------------------------------+-------------+
 
 \newpage
 
-## 1. Background
+## 1. Background Hello
 
 Our group worked on the Steam Games Dataset published on Kaggle by Artemiy Ermilov and collaborators. The dataset contains information about available games found on the Steam library which is one of the largest digital distribution platforms of PC games. The dataset leads up to March 2025 and contains information on more than 90,000 games. The authors provide both a raw dataset and cleaned version removing duplicate entries and playtest versions of games (playtest games are incomplete versions that are given to testers in order to give feedback to the developers before the final game is released). While a May 2024 dataset is also available, we decided to focus our analysis on the March 2025 data alone.
 
@@ -60,7 +60,7 @@ The dataset contains a mixture of numerical, categorical, date and text based va
 
 ### **1b. Variable Selection and Data Cleaning**
 
-Before conducting our analysis, we removed several variables that we thought were not relevant and would not provide useful information for our EDA. These included header_image, website, support_url, support_email, metacritic_url, screenshots, movies, packages, detailed_description and about_the_game. Variables containing URLs and emails won’t provide any insightful information pertaining to our analysis as they serve to redirect to outside sources. Variables that represent visual elements like images and videos won’t be used as we will focus on using numerical and text data for the analysis. There are three variables that contain descriptions of each game which have different amounts of text. For the purpose of simplicity, the short_description will be kept and the other two excluded. The packages variable consists of lists of additional content unique to each game, thus, removing the variable reduces unnecessary noise in the dataset. We also excluded score_rank due to its extremely high number of missing data. Of the 89,618 games in the dataset, 89,579 games had no score rank recorded which makes up 99% of games in the dataset. This leaves only 39 observations with available values. Including this variable would provide very limited information and could substantially reduce the number of observations available for analyses involving it. 
+Before conducting our analysis, we removed several variables that we thought were not relevant and would not provide useful information for our EDA. These included header_image, website, support_url, support_email, metacritic_url, screenshots, movies, packages, detailed_description and about_the_game. Variables containing URLs and emails won’t provide any insightful information pertaining to our analysis as they serve to redirect to outside sources. Variables that represent visual elements like images and videos won’t be used as we will focus on using numerical and text data for the analysis. There are three variables that contain descriptions of each game which have different amounts of text. For the purpose of simplicity, the short_description will be kept and the other two excluded. The packages variable consists of lists of additional content unique to each game, thus, removing the variable reduces unnecessary noise in the dataset. We also excluded score_rank due to its extremely high number of missing data. Of the 89,618 games in the dataset, 89,579 games had no score rank recorded which makes up 99% of games in the dataset. This leaves only 39 observations with available values. Including this variable would provide very limited information and could substantially reduce the number of observations available for analyses involving it.
 
 ### **1c. Completeness and Data quality**
 
