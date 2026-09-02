@@ -4,43 +4,49 @@ format: pdf
 editor: visual
 ---
 
-+---------------------------------------------------------------+--------------+
-| **Section**                                                   | **Page**     |
-+---------------------------------------------------------------+--------------+
-| 1.  **Background**                                            | **2**        |
-+---------------------------------------------------------------+--------------+
-| a.  **Data Types and Structure**                              | **2**        |
-+---------------------------------------------------------------+--------------+
-| b.  **Variable Selection and Data Cleaning**                  | **3**        |
-+---------------------------------------------------------------+--------------+
-| c.  **Completeness and Data Quality**                         | **3**        |
-+---------------------------------------------------------------+--------------+
-| 2.  **Ethics, Privacy and Security**                          | **4**        |
-+---------------------------------------------------------------+--------------+
-| -   **Exploratory Data Analysis**                             | **5**        |
-+---------------------------------------------------------------+--------------+
-| -   **Scoping Data**                                          | **5**        |
-+---------------------------------------------------------------+--------------+
-| -   **Genre Distribution**                                    | **6**        |
-+---------------------------------------------------------------+--------------+
-| -   **Positive Reviews Distribution**                         | **6**        |
-+---------------------------------------------------------------+--------------+
-| -   **Confounders (Price and Age by Genre)**                  | **7**        |
-+---------------------------------------------------------------+--------------+
-| -   **Distribution of Positive Reviews and Average Playtime** | **8**        |
-+---------------------------------------------------------------+--------------+
-| -   **Price and Success**                                     | **8**        |
-+---------------------------------------------------------------+--------------+
-| -   **Individual Contributions**                              | **9**        |
-+---------------------------------------------------------------+--------------+
-| -   **References**                                            | **10**       |
-+---------------------------------------------------------------+--------------+
-| -   **Appendix A (Project Timeline)**                         | **11**       |
-+---------------------------------------------------------------+--------------+
-| -   **Appendix B (Task Allocation)**                          | **11**       |
-+---------------------------------------------------------------+--------------+
-| -   **Appendix C (Detailed Data Description)**                | **12**       |
-+---------------------------------------------------------------+--------------+
++-------------------------------------------------------------+--------------+
+|                                                             |              |
++=============================================================+==============+
+| **Section**                                                 | **Page**     |
++-------------------------------------------------------------+--------------+
+| 1.  **Background**                                          | **2**        |
++-------------------------------------------------------------+--------------+
+| a.  **Data Types and Structure**                            | **2**        |
++-------------------------------------------------------------+--------------+
+| b.  **Variable Selection and Data Cleaning**                | **3**        |
++-------------------------------------------------------------+--------------+
+| c.  **Completeness and Data Quality**                       | **3**        |
++-------------------------------------------------------------+--------------+
+| 2.  **Ethics, Privacy and Security**                        | **4**        |
++-------------------------------------------------------------+--------------+
+| 3. **Exploratory Data Analysis**                            | **5**        |
++-------------------------------------------------------------+--------------+
+| a. **Scoping Data**                                         | **5**        |
++-------------------------------------------------------------+--------------+
+| b. **Genre Distribution**                                   | **6**        |
++-------------------------------------------------------------+--------------+
+| c. **Positive Reviews Distribution**                        | **6**        |
++-------------------------------------------------------------+--------------+
+| d. **Confounders (Price and Age by Genre)**                 | **7**        |
++-------------------------------------------------------------+--------------+
+| e. **Distribution of Positive Reviews and Average Playtime**| **8**        |
++-------------------------------------------------------------+--------------+
+| f. **Price and Success**                                    | **8**        |
++-------------------------------------------------------------+--------------+
+| g. **Price and Positive Reviews**                           | **8**        |
++-------------------------------------------------------------+--------------+
+| 4. **Individual Contributions**                             | **9**        |
++-------------------------------------------------------------+--------------+
+| 5. **Whats Next?**                                          | **10**       |
++-------------------------------------------------------------+--------------+
+| 6. **References**                                           | **10**       |
++-------------------------------------------------------------+--------------+
+| 7. **Appendix A (Project Timeline)**                        | **11**       |
++-------------------------------------------------------------+--------------+
+| 8. **Appendix B (Task Allocation)**                         | **11**       |
++-------------------------------------------------------------+--------------+
+| 9. **Appendix C (Detailed Data Description)**               | **12**       |
++-------------------------------------------------------------+--------------+
 
 \newpage
 
@@ -108,7 +114,7 @@ The genres column lists every genre for a game. Most games have more than one ge
 
 #### **Positive Reviews Distribution**
 
-The `pct_pos_total` variable is the percentage of positive reviews for a game. We set a minimum size of 100 games per genre before comparing review scores, since without a cutoff a single game in a small tag could push its median to 100% or 0% and rank it above established genres like Action or RPG. This cutoff removes every software tag and keeps the 10 significant game genres shown in Figure 4. Casual has the highest median at 83%, and Massively Multiplayer has the lowest at 67%. The remaining genres sit close together between these two, and their boxes overlap heavily, showing that genre alone does not explain review positivity well.
+The pct_pos_total variable is the percentage of positive reviews for a game. We set a minimum size of 100 games per genre before comparing review scores. Without a cutoff, a single game in a small tag could push its median to 100% or 0% and rank it above established genres like Action or RPG. This cutoff removes every software tag and keeps the 10 significant game genres shown in Figure 4. Casual has the highest median at 83%, and Massively Multiplayer has the lowest at 67%. The boxes are notched, showing the confidence interval around each median. Where notches overlap, the difference between two genres' medians is not reliable. Where they don't overlap, as with Casual and Massively Multiplayer, the gap is more trustworthy. The plot does not show how many games sit in each genre, so pair it with the n ≥ 100 filter to avoid assuming equal representation.
 
 ![](images/figure4.svg){fig-align="center"}
 
@@ -116,7 +122,7 @@ The `pct_pos_total` variable is the percentage of positive reviews for a game. W
 
 #### Confounders (Price and Age by Genre)
 
-The `price` variable is the base price of a game in US dollars, and `required_age` is the minimum age rating Steam sets for a game. Figure 5 shows the price spread for each genre. Sports and RPG have the highest median price at \$7.99, while Massively Multiplayer sits close to \$0 since most of these games are free to play. The remaining genres fall between these two, generally in the \$3-7 range. We also checked the share of games with an age restriction in each genre. Figure 6 shows Action has the highest share at 3.9%, compared to 0.5% for Casual. This pattern lines up with the review score chart in reverse: genres with a higher price and a higher age-restriction share tend to have a lower median `pct_pos_total`. This supports the plan to control for both price and age when we study the link between genre and review positivity.
+The price variable is the base price of a game in US dollars, and required_age is the minimum age rating Steam sets for a game. Figure 5 shows the price spread for each genre, with notches marking the confidence interval around each median. Sports and RPG have the highest median price at $7.99, while Massively Multiplayer sits close to $0 since most of these games are free to play. Figure 6 shows the share of games with an age restriction in each genre. Action has the highest share at 3.9%, compared to 0.5% for Casual. This pattern lines up with the review score chart in reverse. Genres with a higher price and a higher age-restriction share tend to have a lower median pct_pos_total. These two plots show price and age separately by genre. They do not show whether the same games drive both patterns within a genre, only that the genre-level trends move together. This supports the plan to control for both price and age when we study the link between genre and review positivity.
 
 ![](images/figure5.svg){fig-align="center"}
 
@@ -126,4 +132,4 @@ The `price` variable is the base price of a game in US dollars, and `required_ag
 
 **Figure 6:** Share of games with an age restriction, by genre, top 10 genres
 
-##   
+## 
