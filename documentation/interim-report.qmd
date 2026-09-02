@@ -4,49 +4,47 @@ format: pdf
 editor: visual
 ---
 
-+-------------------------------------------------------------+--------------+
-|                                                             |              |
-+=============================================================+==============+
-| **Section**                                                 | **Page**     |
-+-------------------------------------------------------------+--------------+
-| 1.  **Background**                                          | **2**        |
-+-------------------------------------------------------------+--------------+
-| a.  **Data Types and Structure**                            | **2**        |
-+-------------------------------------------------------------+--------------+
-| b.  **Variable Selection and Data Cleaning**                | **3**        |
-+-------------------------------------------------------------+--------------+
-| c.  **Completeness and Data Quality**                       | **3**        |
-+-------------------------------------------------------------+--------------+
-| 2.  **Ethics, Privacy and Security**                        | **4**        |
-+-------------------------------------------------------------+--------------+
-| 3. **Exploratory Data Analysis**                            | **5**        |
-+-------------------------------------------------------------+--------------+
-| a. **Scoping Data**                                         | **5**        |
-+-------------------------------------------------------------+--------------+
-| b. **Genre Distribution**                                   | **6**        |
-+-------------------------------------------------------------+--------------+
-| c. **Positive Reviews Distribution**                        | **6**        |
-+-------------------------------------------------------------+--------------+
-| d. **Confounders (Price and Age by Genre)**                 | **7**        |
-+-------------------------------------------------------------+--------------+
-| e. **Distribution of Positive Reviews and Average Playtime**| **8**        |
-+-------------------------------------------------------------+--------------+
-| f. **Price and Success**                                    | **8**        |
-+-------------------------------------------------------------+--------------+
-| g. **Price and Positive Reviews**                           | **8**        |
-+-------------------------------------------------------------+--------------+
-| 4. **Individual Contributions**                             | **9**        |
-+-------------------------------------------------------------+--------------+
-| 5. **Whats Next?**                                          | **10**       |
-+-------------------------------------------------------------+--------------+
-| 6. **References**                                           | **10**       |
-+-------------------------------------------------------------+--------------+
-| 7. **Appendix A (Project Timeline)**                        | **11**       |
-+-------------------------------------------------------------+--------------+
-| 8. **Appendix B (Task Allocation)**                         | **11**       |
-+-------------------------------------------------------------+--------------+
-| 9. **Appendix C (Detailed Data Description)**               | **12**       |
-+-------------------------------------------------------------+--------------+
++---------------------------------------------------------------+--------------+
+| **Section**                                                   | **Page**     |
++---------------------------------------------------------------+--------------+
+| 1.  **Background**                                            | **2**        |
++---------------------------------------------------------------+--------------+
+| a.  **Data Types and Structure**                              | **2**        |
++---------------------------------------------------------------+--------------+
+| b.  **Variable Selection and Data Cleaning**                  | **3**        |
++---------------------------------------------------------------+--------------+
+| c.  **Completeness and Data Quality**                         | **3**        |
++---------------------------------------------------------------+--------------+
+| 2.  **Ethics, Privacy and Security**                          | **4**        |
++---------------------------------------------------------------+--------------+
+| 3.  **Exploratory Data Analysis**                             | **5**        |
++---------------------------------------------------------------+--------------+
+| a.  **Scoping Data**                                          | **5**        |
++---------------------------------------------------------------+--------------+
+| b.  **Genre Distribution**                                    | **6**        |
++---------------------------------------------------------------+--------------+
+| c.  **Positive Reviews Distribution**                         | **6**        |
++---------------------------------------------------------------+--------------+
+| d.  **Confounders (Price and Age by Genre)**                  | **7**        |
++---------------------------------------------------------------+--------------+
+| e.  **Distribution of Positive Reviews and Average Playtime** | **8**        |
++---------------------------------------------------------------+--------------+
+| f.  **Price and Success**                                     | **8**        |
++---------------------------------------------------------------+--------------+
+| g.  **Price and Positive Reviews**                            | **8**        |
++---------------------------------------------------------------+--------------+
+| 4.  **Individual Contributions**                              | **9**        |
++---------------------------------------------------------------+--------------+
+| 5.  **Whats Next?**                                           | **10**       |
++---------------------------------------------------------------+--------------+
+| 6.  **References**                                            | **10**       |
++---------------------------------------------------------------+--------------+
+| 7.  **Appendix A (Project Timeline)**                         | **11**       |
++---------------------------------------------------------------+--------------+
+| 8.  **Appendix B (Task Allocation)**                          | **11**       |
++---------------------------------------------------------------+--------------+
+| 9.  **Appendix C (Detailed Data Description)**                | **12**       |
++---------------------------------------------------------------+--------------+
 
 \newpage
 
@@ -92,13 +90,13 @@ A major ethical concern in this project is the privacy of the Steam users in the
 
 Our dataset covers games released on Steam from April 1997 to March 2025. The majority of games in the dataset were released after 2016. Figure 1 uses a log scale on the count axis. Without this, the small counts before 2010 look like zero next to the 2024 peak. The log scale makes the early years visible, but it also compresses the visual gap between years. Bar height alone should not be used to compare counts. Exact values should be read from the axis.
 
-![](images/figure1.svg){fig-align="center"}
+![](images/figure1.svg){fig-align="center" width="400"}
 
 **Figure 1:** Distribution of game release dates in the cleaned Steam dataset, count axis on log
 
 Before further analysis, we filtered out games with fewer than 30 reviews. Steam sets both `pct_pos_total` and `num_reviews_total` to -1 for games with fewer than 10 reviews. At 10 reviews, one review can swing `pct_pos_total` by about 10 points. This is too noisy to trust. Figure 2 shows the distribution of review counts, clipped at 200 for readability. Most games sit at the low end of this range, which is why a cutoff matters. A 30 review cutoff keeps a large sample while reducing this noise. This leaves 34,583 games out of 89,618, or 38.6% for remaining analysis.
 
-![](images/figure2.svg){fig-align="center"}
+![](images/figure2.svg){fig-align="center" width="400"}
 
 **Figure 2:** Distribution of total review counts, clipped at 200 reviews for readability
 
@@ -108,7 +106,7 @@ Before further analysis, we filtered out games with fewer than 30 reviews. Steam
 
 The genres column lists every genre for a game. Most games have more than one genre. We use the review-filtered dataset described above, and drop a further 109 games with no genre listed. The column also includes labels that are not genres, such as "Violent", "Gore", "Nudity", "Sexual Content", "Free To Play" and "Early Access". We remove these six before counting genres, which drops the number of unique labels from 27 to 21. Figure 3 shows the count of games for the top 15 genres. Indie is the most common at 24,155 games, followed by Adventure and Action with 14,844 and 13,953. The smallest genres in this list have only a few hundred games each. This plot only counts genre labels, not unique games, since a game with three genres is counted three times. It does not show how positive reviews vary within a genre, which is why a minimum size cutoff is applied before that comparison.
 
-![](images/figure3.svg){fig-align="center"}
+![](images/figure3.svg){fig-align="center" width="400"}
 
 **Figure 3:** Number of games per genre, top 15 genres (exploded, review-filtered dataset)
 
@@ -116,20 +114,30 @@ The genres column lists every genre for a game. Most games have more than one ge
 
 The pct_pos_total variable is the percentage of positive reviews for a game. We set a minimum size of 100 games per genre before comparing review scores. Without a cutoff, a single game in a small tag could push its median to 100% or 0% and rank it above established genres like Action or RPG. This cutoff removes every software tag and keeps the 10 significant game genres shown in Figure 4. Casual has the highest median at 83%, and Massively Multiplayer has the lowest at 67%. The boxes are notched, showing the confidence interval around each median. Where notches overlap, the difference between two genres' medians is not reliable. Where they don't overlap, as with Casual and Massively Multiplayer, the gap is more trustworthy. The plot does not show how many games sit in each genre, so pair it with the n ≥ 100 filter to avoid assuming equal representation.
 
-![](images/figure4.svg){fig-align="center"}
+![](images/figure4.svg){fig-align="center" width="400"}
 
 **Figure 4:** Percentage of positive reviews by genre, top 10 genres with at least 100 games
 
 #### Confounders (Price and Age by Genre)
 
-The price variable is the base price of a game in US dollars, and required_age is the minimum age rating Steam sets for a game. Figure 5 shows the price spread for each genre, with notches marking the confidence interval around each median. Sports and RPG have the highest median price at $7.99, while Massively Multiplayer sits close to $0 since most of these games are free to play. Figure 6 shows the share of games with an age restriction in each genre. Action has the highest share at 3.9%, compared to 0.5% for Casual. This pattern lines up with the review score chart in reverse. Genres with a higher price and a higher age-restriction share tend to have a lower median pct_pos_total. These two plots show price and age separately by genre. They do not show whether the same games drive both patterns within a genre, only that the genre-level trends move together. This supports the plan to control for both price and age when we study the link between genre and review positivity.
+The price variable is the base price of a game in US dollars, and required_age is the minimum age rating Steam sets for a game. Figure 5 shows the price spread for each genre, with notches marking the confidence interval around each median. Sports and RPG have the highest median price at \$7.99, while Massively Multiplayer sits close to \$0 since most of these games are free to play. Figure 6 shows the share of games with an age restriction in each genre. Action has the highest share at 3.9%, compared to 0.5% for Casual. This pattern lines up with the review score chart in reverse. Genres with a higher price and a higher age-restriction share tend to have a lower median pct_pos_total. These two plots show price and age separately by genre. They do not show whether the same games drive both patterns within a genre, only that the genre-level trends move together. This supports the plan to control for both price and age when we study the link between genre and review positivity.
 
-![](images/figure5.svg){fig-align="center"}
+![](images/figure5.svg){fig-align="center" width="400"}
 
 **Figure 5:** Base price (USD) by genre, top 10 genres, games priced under \$60
 
-![](images/figure6.svg){fig-align="center"}
+![](images/figure6.svg){fig-align="center" width="400"}
 
 **Figure 6:** Share of games with an age restriction, by genre, top 10 genres
 
-## 
+### **Distribution of Positive Reviews & Average play timec**
+
+The `average_playtime_forever` variable is the average number of minutes players have spent in a game since it launched on Steam. The `pct_pos_total` variable measures the percentage of positive reviews. Figure 7 plots these two variables for 34,583 games with 30 or more reviews. `pct_pos_total` ranges from about 13% to 100% in this sample, with most games sitting between 50% and 100% positive. `average_playtime_forever` spans a wide range from 0 minutes up to over a million minutes, so we plot it on a log scale to see the spread clearly. 78.5% of games in our filtered dataset have an average playtime of 0. This is not limited to games near our review cutoff: among these games, review counts range from 30 up to over 2.5 million, with a median of 102. This suggests Steam does not record or report playtime data for every game, so we treat this as a limitation rather than a reason to filter these games out.
+
+![](images/figure1-02.svg){fig-align="center" width="550"}
+
+**Figure 7:** Positive reviews and Average playtime in log scale
+
+![](images/figure2-02.svg){fig-align="center" width="400"}
+
+**Figure 8:** Average playtime (minutes, log scale) versus percentage of positive reviews
