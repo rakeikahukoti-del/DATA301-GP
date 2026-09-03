@@ -176,8 +176,7 @@ After performing this EDA, we have found interesting patterns and characteristic
 
 ##### **Derick's Statement**
 
-\
-\
+The insights gained from the EDA have revealed important patterns between Steam games and their unique characteristics that could explain my scientific question of how they can lead to positively received games. To gain better insights on the relationships between variables, I plan to use regression models for columns like price and release date, and classification models for columns like genre and tags. Furthermore, I plan to use text based models to find more complex relationships like specific terms found in the games descriptions or other qualitative factors that can be found in the reviews for the games in the dataset.
 
 ##### **Rakei's Statement**
 
