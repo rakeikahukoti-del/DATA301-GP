@@ -88,13 +88,13 @@ A major ethical concern in this project is the privacy of the Steam users in the
 
 #### 3a. Scoping Data
 
-Our dataset covers games released on Steam from April 1997 to March 2025. The majority of games in the dataset were released after 2016. Figure 1 uses a log scale on the count axis. Without this, the small counts before 2010 look like zero next to the 2024 peak. The log scale makes the early years visible, but it also compresses the visual gap between years. Bar height alone should not be used to compare counts. Exact values should be read from the axis.
+Our dataset covers games available on Steam that were released from April 1997 to March 2025. The majority of games in the dataset were released after 2016. Figure 1 uses a log scale on the count axis. Without changing the scale, the smaller counts of games released before 2010 look like zero compared to the 2024 peak. The log scale makes the early years visible while also compressing the visual gap between years. Bar height alone should not be used to compare counts. Exact values should be read from the axis.
 
 ![](images/figure1.svg){fig-align="center" width="400"}
 
 **Figure 1:** Distribution of game release dates in the cleaned Steam dataset, count axis on log
 
-Before further analysis, we filtered out games with fewer than 30 reviews. Steam sets both `pct_pos_total` and `num_reviews_total` to -1 for games with fewer than 10 reviews. At 10 reviews, one review can swing `pct_pos_total` by about 10 points. This is too noisy to trust. Figure 2 shows the distribution of review counts, clipped at 200 for readability. Most games sit at the low end of this range, which is why a cutoff matters. A 30 review cutoff keeps a large sample while reducing this noise. This leaves 34,583 games out of 89,618, or 38.6% for remaining analysis.
+Before further analysis, we filtered out games with fewer than 30 reviews. The dataset sets both `pct_pos_total` and `num_reviews_total` to -1 for games with less than 10 reviews. With cutoff at 10, one review can swing `pct_pos_total` by about 10 points which creates unneeded noise. Figure 2 shows the distribution of review counts, clipped at 200 for readability. Most games sit at the low end of this range, which is why a cutoff matters. A 30 review cutoff keeps a large sample while reducing this noise. This filtering leaves 34,583 games out of 89,618, or 38.6% for remaining analysis.
 
 ![](images/figure2.svg){fig-align="center" width="400"}
 
@@ -112,7 +112,7 @@ The genres column lists every genre for a game. Most games have more than one ge
 
 #### **3c. Positive Reviews Distribution**
 
-The pct_pos_total variable is the percentage of positive reviews for a game. We set a minimum size of 100 games per genre before comparing review scores. Without a cutoff, a single game in a small tag could push its median to 100% or 0% and rank it above established genres like Action or RPG. This cutoff removes every software tag and keeps the 10 significant game genres shown in Figure 4. Casual has the highest median at 83%, and Massively Multiplayer has the lowest at 67%. The boxes are notched, showing the confidence interval around each median. Where notches overlap, the difference between two genres' medians is not reliable. Where they don't overlap, as with Casual and Massively Multiplayer, the gap is more trustworthy. The plot does not show how many games sit in each genre, so pair it with the n ≥ 100 filter to avoid assuming equal representation.
+The pct_pos_total variable is the percentage of positive reviews for a game. We set a minimum size of 100 games per genre before comparing review scores. Without a cutoff, a single game in a small tag could push its median to 100% or 0% and rank it above established genres like Action or RPG. This cutoff removes every software tag and keeps the 10 significant game genres shown in Figure 4. Casual has the highest median at 83%, and Massively Multiplayer has the lowest at 67%. The boxes are notched, showing the confidence interval around each median. Where notches overlap, the difference between two genres' medians is not reliable. Where they don't overlap, as with Casual and Massively Multiplayer, the gap is more trustworthy. The plot does not show how many games sit in each genre. Therefore, we pair it with the n ≥ 100 filter to avoid assuming equal representation.
 
 ![](images/figure4.svg){fig-align="center" width="400"}
 
@@ -122,7 +122,7 @@ The pct_pos_total variable is the percentage of positive reviews for a game. We 
 
 #### 3d. Confounders (Price and Age by Genre)
 
-The price variable is the base price of a game in US dollars, and required_age is the minimum age rating Steam sets for a game. Figure 5 shows the price spread for each genre, with notches marking the confidence interval around each median. Sports and RPG have the highest median price at \$7.99, while Massively Multiplayer sits close to \$0 since most of these games are free to play. Figure 6 shows the share of games with an age restriction in each genre. Action has the highest share at 3.9%, compared to 0.5% for Casual. This pattern lines up with the review score chart in reverse. Genres with a higher price and a higher age-restriction share tend to have a lower median pct_pos_total. These two plots show price and age separately by genre. They do not show whether the same games drive both patterns within a genre, only that the genre-level trends move together. This supports the plan to control for both price and age when we study the link between genre and review positivity.
+The price variable is the base price of a game in US dollars, and required_age is the minimum age rating Steam sets for a game. Figure 5 shows the price spread for each genre, with notches marking the confidence interval around each median. Sports and RPG have the highest median price at \$7.99, while Massively Multiplayer sits close to \$0 (this is because most of these games are free to play). Figure 6 shows the share of games with an age restriction in each genre. Action has the highest share at 3.9%, compared to 0.5% for Casual. This pattern lines up with the review score chart in reverse. Genres with a higher price and a higher age-restriction share tend to have a lower median pct_pos_total. These two plots show price and age separately by genre. They do not show whether the same games drive both patterns within a genre, only that the genre-level trends move together. This supports the plan to control for both price and age when we study the link between genre and review positivity.
 
 ![](images/figure5.svg){fig-align="center" width="400"}
 
@@ -136,7 +136,7 @@ The price variable is the base price of a game in US dollars, and required_age i
 
 #### **3e. Distribution of Positive Reviews & Average play time**
 
-The `average_playtime_forever` variable is the average number of minutes players have spent in a game since it launched on Steam. The `pct_pos_total` variable measures the percentage of positive reviews. Figure 7 plots these two variables for 34,583 games with 30 or more reviews. `pct_pos_total` ranges from about 13% to 100% in this sample, with most games sitting between 50% and 100% positive. `average_playtime_forever` spans a wide range from 0 minutes up to over a million minutes, so we plot it on a log scale to see the spread clearly. 78.5% of games in our filtered dataset have an average playtime of 0. This is not limited to games near our review cutoff: among these games, review counts range from 30 up to over 2.5 million, with a median of 102. This suggests Steam does not record or report playtime data for every game, so we treat this as a limitation rather than a reason to filter these games out.
+The `average_playtime_forever` variable is the average number of minutes all players who bought the game have spent in it from when it was added on Steam. The `pct_pos_total` variable measures the percentage of positive reviews. Figure 7 plots these two variables for 34,583 games with 30 or more reviews. `pct_pos_total` ranges from about 13% to 100% in this sample, with most games sitting between 50% and 100% positive. `average_playtime_forever` spans a wide range from 0 minutes up to over a million minutes, so we plot it on a log scale to see the spread clearly. 78.5% of games in our filtered dataset have an average playtime of 0. This is not limited to games near our review cutoff: among these games, review counts range from 30 up to over 2.5 million, with a median of 102. This suggests Steam does not record or report playtime data for every game, so we treat this as a limitation rather than a reason to filter these games out.
 
 ![](images/figure1-02.svg){fig-align="center" width="550"}
 
@@ -150,7 +150,7 @@ The `average_playtime_forever` variable is the average number of minutes players
 
 #### **3f. Price and Average Playtime**
 
-`positive` is a variable in the dataset that gives the total number of positive reviews a game has received on Steam. It uses a raw count rather than a percentage used in `pct_pos_total`. It reflects both how many people reviewed a game and how many of those reviews were positive. The chart below shows the price plotted against positive and `average_playtime_forever`. Most games are priced under \$25 and it gets increasingly sparse beyond \$75 with a few outliers at \$200. We plotted both charts on a log scale because positive spans from single digit counts to over 10 million, making the spread easier to see. `average_playtime_forever` shows a similarly wide range from near 0 up to 10\^6. In both panels, the highest values of positive and `average_playtime_forever` are concentrated among games priced below \$25. Games priced above \$75 show a narrower range of both variables. There is also a visible band of points at the bottom of the `average_playtime_forever` panel, consistent with the large share of games with 0 average playtime discussed earlier.
+`positive` is a variable in the dataset that gives the total number of positive reviews a game has received on Steam. It uses a raw count rather than a percentage used in `pct_pos_total`. It reflects both the number of people who reviewed a game and how many of those reviews were positive. The chart below shows the price plotted against positive and `average_playtime_forever`. Most games are priced under \$25 and it gets increasingly sparse beyond \$75 with a few outliers at \$200. We plotted both charts on a log scale because positive spans from single digit counts to over 10 million, making the spread easier to see. `average_playtime_forever` shows a similarly wide range from near 0 up to 10\^6. In both panels, the highest values of positive and `average_playtime_forever` are concentrated among games priced below \$25. Games priced above \$75 show a narrower range of both variables. There is also a visible band of points at the bottom of the `average_playtime_forever` panel, which is consistent with the large share of games with 0 average playtime discussed earlier.
 
 ![](images/figure3-02.svg){fig-align="center" width="550"}
 
@@ -200,6 +200,16 @@ To better compare price with positive reviews, we grouped the former into 6 buck
 | -   **Price and Success**                                   | **Joanna**      |
 +-------------------------------------------------------------+-----------------+
 | -   **Price and Positive Reviews**                          | **Joanna**      |
++-------------------------------------------------------------+-----------------+
+|                                                             |                 |
++-------------------------------------------------------------+-----------------+
+| -   **Additional tasks**                                    |                 |
++-------------------------------------------------------------+-----------------+
+| -   **Proofreading**                                        | **Derick**      |
++-------------------------------------------------------------+-----------------+
+| -   **Editing**                                             | **Derick**      |
++-------------------------------------------------------------+-----------------+
+| -   **Formating**                                           | **Joanna**      |
 +-------------------------------------------------------------+-----------------+
 |                                                             |                 |
 +-------------------------------------------------------------+-----------------+
