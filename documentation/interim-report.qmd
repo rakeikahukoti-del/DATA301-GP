@@ -180,7 +180,7 @@ The insights gained from the EDA have revealed important patterns between Steam 
 
 ##### **Rakei's Statement**
 
-This EDA supports my phase 2 question on the relationship between a game’s genre and its proportion of positive reviews, after accounting for price and age rating. The confounder checks here show price and age both move with genre in a way that lines up with review positivity, which is why accounting for them matters. My next step is to build a regression model using `genre`, `price`, and `age rating` as predictors of `pct_pos_total`.
+This EDA supports my phase 2 question on the relationship between a game’s genre and its proportion of positive reviews, after accounting for price and age rating. The confounder checks here show price and age both move with genre in a way that lines up with review positivity, which is why accounting for them matters. My next step is to build a regression model using genre, price, and age rating as predictors of pct_pos_total.
 
 ## 6. References
 
